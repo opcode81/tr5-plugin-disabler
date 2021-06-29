@@ -11,11 +11,11 @@ The utility even remember the plugins you had previously selected after you rein
 
 This script works for VST3 plugins under Windows (with your plugins installed under `%COMMONPROGRAMFILES%\VST3`).
 
-If you do not have Python 3, [download the portable application](https://github.com/opcode81/tr5-plugin-disabler/releases/download/v1.0/tr5_plugin_disabler_portable.zip).
+If you do not have Python 3, [download the portable application for Windows](https://github.com/opcode81/tr5-plugin-disabler/releases/download/v1.0.1/tr5_plugin_disabler_v1.0.1_portable_win.zip).
 
 ## Usage
 
-* Close your DAW (and any other programs using the plugins).
+* Close any applications using the plugins, e.g. your DAW.
 * Start the application.
 * Enable/disable plugins using the checkboxes.
 * Click apply.
