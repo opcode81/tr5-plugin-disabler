@@ -13,6 +13,7 @@ This script works for VST3 plugins under Windows (with your plugins installed un
 
 ## Usage
 
+* Close your DAW (and any other programs using the plugins).
 * Run the script.
 * Enable/disable plugins using the checkboxes.
 * Click apply.
