@@ -61,11 +61,10 @@ class TR5PluginDisablerGui(tk.Frame):
 
 if __name__ == '__main__':
     plugins_on_disk = find_tr5_plugins()
+    plugins_user_config = plugins_on_disk.copy()
     if os.path.exists(CONFIG_FILE):
         with open(CONFIG_FILE, "rb") as f:
-            plugins_user_config = pickle.load(f)
-    else:
-        plugins_user_config = plugins_on_disk
+            plugins_user_config.update(pickle.load(f))
     root = tk.Tk()
     root.title("T-RackS 5 Plugin Disabler")
     app = TR5PluginDisablerGui(plugins_on_disk, plugins_user_config, master=root)
