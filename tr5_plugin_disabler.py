@@ -1,7 +1,7 @@
 import os
 import pickle
 import tkinter as tk
-from typing import Dict
+from typing import Dict, Tuple, List
 
 VST3_PATH = os.path.join(os.getenv("COMMONPROGRAMFILES"), "VST3")
 EXT_ENABLED = ".vst3"
@@ -9,8 +9,9 @@ EXT_DISABLED = ".vst3.disabled"
 CONFIG_FILE = "tr5_plugin_disabler.pickle"
 
 
-def find_tr5_plugins() -> Dict[str, bool]:
+def find_tr5_plugins() -> Tuple[Dict[str, bool], List[str]]:
     d = {}
+    disabled_plugins = set()
     for fn in os.listdir(VST3_PATH):
         if fn.startswith("TR5 "):
             if fn.endswith(EXT_ENABLED):
@@ -18,8 +19,12 @@ def find_tr5_plugins() -> Dict[str, bool]:
                 d[plugin] = True
             elif fn.endswith(EXT_DISABLED):
                 plugin = fn.replace(EXT_DISABLED, "")
-                d[plugin] = False
-    return d
+                disabled_plugins.add(plugin)
+                if plugin not in d:
+                    d[plugin] = False
+    obsolete_disabled_plugins = [plugin for plugin in disabled_plugins if d[plugin]]  # disabled plugins where an enabled version exists
+    obsolete_disabled_plugin_files = [os.path.join(VST3_PATH, p + EXT_DISABLED) for p in obsolete_disabled_plugins]
+    return d, obsolete_disabled_plugin_files
 
 
 class TR5PluginDisablerGui(tk.Frame):
@@ -60,7 +65,12 @@ class TR5PluginDisablerGui(tk.Frame):
 
 
 if __name__ == '__main__':
-    plugins_on_disk = find_tr5_plugins()
+    plugins_on_disk, obsolete_disabled_plugin_files = find_tr5_plugins()
+    if obsolete_disabled_plugin_files:
+        print("Deleting %d disabled plugin files where an enabled version exists ..." % len(obsolete_disabled_plugin_files))
+        for f in obsolete_disabled_plugin_files:
+            print("  %s" % f)
+            os.unlink(f)
     plugins_user_config = plugins_on_disk.copy()
     if os.path.exists(CONFIG_FILE):
         with open(CONFIG_FILE, "rb") as f:
