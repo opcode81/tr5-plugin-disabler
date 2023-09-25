@@ -15,7 +15,7 @@ The tool even remembers the plugins you selected across sessions, such that afte
 
 This script works for VST3 plugins under Windows (with your plugins installed under `%COMMONPROGRAMFILES%\VST3`).
 
-If you do not have Python 3, [download the portable application for Windows](https://github.com/opcode81/tr5-plugin-disabler/releases/download/v1.0.1/tr5_plugin_disabler_v1.0.1_portable_win.zip).
+If you do not have Python 3, [download the portable application for Windows](https://github.com/opcode81/tr5-plugin-disabler/releases/download/v1.0.2/tr5_plugin_disabler_v1.0.2_portable_win.zip).
 
 ## Usage
 
